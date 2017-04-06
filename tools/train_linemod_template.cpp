@@ -269,7 +269,11 @@ main (int argc, char** argv)
     PointCloudXYZRGBA::Ptr cloud (new PointCloudXYZRGBA);
     if (!loadCloud (input_filename, *cloud)) 
       return (-1);
-
+    if (!cloud->isOrganized())
+    {
+		  print_error("No organized cloud in input file: %s \n", input_filename.c_str());
+		  return (-1);
+	  }
     // Construct output filenames
     std::string sqmmt_filename = input_filename;
     sqmmt_filename.replace(sqmmt_filename.length () - 4, 13, "_template.sqmmt");
